@@ -1,0 +1,10 @@
+add_subdirectory(2geom)
+add_subdirectory(performance-tests EXCLUDE_FROM_ALL)
+if(GTK4_FOUND)
+  add_subdirectory(toys EXCLUDE_FROM_ALL)
+else()
+  message("Not building toys as they require GTK4.")
+endif()
+
+add_subdirectory(cython EXCLUDE_FROM_ALL)
+add_subdirectory(py2geom EXCLUDE_FROM_ALL)

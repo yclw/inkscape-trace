@@ -1,0 +1,160 @@
+# 编译产物和对象文件
+*.o
+*.obj
+*.lo
+*.slo
+*.ko
+*.elf
+
+# 链接器输出
+*.ilk
+*.map
+*.exp
+
+# 预编译头文件
+*.gch
+*.pch
+
+# 库文件
+*.lib
+*.a
+*.la
+*.lo
+*.def
+*.exp
+
+# 共享对象文件 (Unix/Linux)
+*.so
+*.so.*
+*.dylib
+
+# 动态链接库 (Windows)
+*.dll
+*.pdb
+*.idb
+*.pdb
+
+# 可执行文件
+*.exe
+*.out
+*.app
+main
+inkscape-trace
+
+# CMake 构建产物
+build/
+Build/
+BUILD/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# Python 编译文件
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+dist/
+.Python
+env/
+venv/
+.env
+
+# Cython 生成的文件
+*.c
+
+# IDE 和编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.cproject
+.settings/
+*.vcxproj
+*.vcxproj.filters
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# 系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+*.bak
+*.backup
+*.orig
+
+# 测试覆盖率文件
+*.gcov
+*.gcno
+*.gcda
+*.info
+coverage/
+
+# Valgrind 输出
+*.valgrind
+
+# 调试符号
+*.dSYM/
+
+# pkg-config 文件
+*.pc
+
+# autotools 产物
+.deps/
+.libs/
+*.la
+*.lo
+aclocal.m4
+autom4te.cache/
+config.guess
+config.h
+config.h.in
+config.log
+config.status
+config.sub
+configure
+depcomp
+install-sh
+ltmain.sh
+missing
+stamp-h1
+Makefile
+Makefile.in
+
+# Documentation 构建产物
+doc/html/
+doc/latex/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.toc
+
+# 测试产物
+test_results/
+*.test
+
+# 依赖管理
+conan.lock

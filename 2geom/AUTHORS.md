@@ -1,0 +1,26 @@
+# Authors
+
+ - Maximilian Albert
+ - Joshua Andler
+ - Tavmjong Bah
+ - Jean-François Barraud
+ - Vincent Barrielle
+ - Olaf Bjarnason
+ - Joshua L. Blocher
+ - Marco Cecchetti
+ - Kris De Gussem
+ - Tim G. Dwyer
+ - Markus Engel
+ - Johan B. C. Engelen
+ - Paul F. Harrison
+ - Nathan J. Hurst
+ - Vangelis Katsikaros
+ - Krzysztof Kosiński
+ - Diederik van Lierop
+ - Mentalguy
+ - Jelle R. Moulder
+ - Alvin Penner
+ - Jan Pulmann
+ - Michael G. Sloan
+ - Aaron Spike
+ - Michael Wybrow

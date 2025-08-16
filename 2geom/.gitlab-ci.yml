@@ -1,0 +1,126 @@
+# Dependencies are managed in the Dockerfile in the inkscape-ci-docker
+# Git repository. Recycle the one for the master Inkscape branch for now
+image: registry.gitlab.com/inkscape/inkscape-ci-docker/master
+
+# Speed up git on runners
+variables:
+  GIT_DEPTH: "10"
+  GIT_SUBMODULE_STRATEGY: recursive
+
+# Reusable templates
+.ccache_init: &ccache_init
+  before_script:
+    - mkdir -p ccache
+    - export CCACHE_BASEDIR=${PWD}
+    - export CCACHE_DIR=${PWD}/ccache
+
+# The main build of the library
+2geom:
+  stage: build
+  <<: *ccache_init
+  script:
+    - mkdir -p build opt
+    - cd build
+    - cmake .. -GNinja
+               -DCMAKE_C_COMPILER_LAUNCHER=ccache
+               -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+               -DCMAKE_CXX_FLAGS="-fsanitize=address -fno-omit-frame-pointer"
+               -DCMAKE_BUILD_TYPE=Debug
+               -DCMAKE_INSTALL_PREFIX=../opt
+               -D2GEOM_BOOST_PYTHON=ON
+               -DWITH_COVERAGE=ON
+    - ninja
+    - ninja perf
+    - ninja py2geom
+    - ninja install
+  cache:
+    paths:
+      - ccache/
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - build # needed by unit tests
+      - opt   # needed by find-package
+
+# Build an executable including lib2geom as a subproject
+2geom:as-subproject:
+  stage: build
+  <<: *ccache_init
+  script:
+    - mkdir -p opt2
+    - cd tests/dependent-project
+    - mkdir -p build-as-subproject
+    - cd build-as-subproject
+    - cmake .. -GNinja
+               -D2GEOM_AS_SUBPROJECT=ON
+               -DCMAKE_INSTALL_PREFIX=../../../opt2
+    - ninja main
+    - ./main
+    - ninja install
+  cache:
+    paths:
+      - ccache/
+
+# Build an executable linking against lib2geom found via cmake
+2geom:find-package:
+  stage: test
+  dependencies:
+    - 2geom
+  needs: ["2geom"]
+  <<: *ccache_init
+  script:
+    - mkdir -p opt3
+    - cd tests/dependent-project
+    - mkdir -p build-with-find-package
+    - cd build-with-find-package
+    - cmake .. -GNinja
+               -D2GEOM_AS_SUBPROJECT=OFF
+               -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address"
+               -DCMAKE_INSTALL_PREFIX=../../../opt3
+               -D2Geom_DIR="$PWD/../../../opt/lib/cmake/2Geom"
+    - ninja main
+    - ./main
+    - ninja install
+  cache:
+    paths:
+      - ccache/
+
+# Run tests
+2geom:tests:
+  stage: test
+  dependencies:
+    - 2geom
+  needs: ["2geom"]
+  script:
+    - cd build
+    - find . -type f -name '*.gcno' | xargs touch # Suppress gcov warning due to GitLab updating source timestamps.
+    - ninja coverage_xml
+  coverage: /^\s*lines:\s*\d+.\d+\%/
+  artifacts:
+    name: ${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+    expire_in: 1 month
+    paths:
+      - build/Testing
+    expose_as: 'Test logs'
+    when: on_failure
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: build/coverage_xml.xml
+
+# Generate coverage html report
+pages:
+    stage: deploy
+    dependencies:
+      - 2geom
+    script:
+      - cd build
+      - find . -type f -name '*.gcno' | xargs touch
+      - ninja coverage_html
+      - mv coverage_html/ ../public/
+    artifacts:
+      paths:
+        - public
+      expire_in: 30 days
+    only:
+      - master

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="113.27319mm"
+   height="113.59513mm"
+   viewBox="0 0 113.27319 113.59513"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="2geom-logo.svg"
+   inkscape:export-filename="/home/tweenkpl/2geom-logo.png"
+   inkscape:export-xdpi="111.80057"
+   inkscape:export-ydpi="111.80057">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="166.69098"
+     inkscape:cy="240.82631"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:object-paths="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1722"
+     inkscape:window-height="1358"
+     inkscape:window-x="639"
+     inkscape:window-y="321"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-28.785322,-45.762063)">
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:12.45454025;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 107.19276,55.400456 c -15.230149,0 -24.140387,9.013472 -24.140387,24.554437 0,0.621638 2.2e-4,1.45063 0.103836,2.590299 h 13.883015 v -2.383058 c 0,-8.184908 3.833366,-12.950644 10.464176,-12.950644 6.4236,0 10.36078,4.454975 10.36078,11.811032 0,8.081301 -2.58994,11.293214 -18.752545,22.793528 -12.432769,8.49573 -16.266387,15.02298 -16.991633,28.59542 h 37.554848 c -1.05021,4.0163 -4.60797,6.85313 -9.02421,6.85313 H 60.194912 c -5.284123,0 -9.344303,-4.0602 -9.344303,-9.34431 V 77.464994 c 0,-5.284125 4.060178,-9.342587 9.344303,-9.342587 h 22.70085 c 1.164171,-3.007917 2.822357,-5.632208 4.960058,-7.80351 1.913386,-1.943461 4.188188,-3.497369 6.76988,-4.651129 H 60.194912 c -11.968506,0 -21.798514,9.82872 -21.798514,21.797226 v 50.455296 c 0,11.96851 9.830003,21.79851 21.798514,21.79851 h 50.455728 c 11.96851,0 21.79679,-9.83 21.79679,-21.79851 V 117.4604 h -0.38916 -12.06548 -19.01641 c 1.86492,-3.93705 4.14415,-6.00893 14.91922,-13.88301 12.74359,-9.324584 16.47374,-14.919299 16.47374,-24.865515 0,-14.194083 -9.73922,-23.311419 -25.17658,-23.311419 z"
+       id="rect3680"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>
