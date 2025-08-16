@@ -21,6 +21,7 @@ src/toys/*
 !src/toys/*.hand
 !src/toys/*.rb
 !src/toys/*.py
+!src/toys/CMakeLists.txt
 doc/html/
 doc/latex/
 doxygen_warnings.log
