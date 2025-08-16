@@ -98,19 +98,18 @@ set(DOUBLE_CONVERSION_LIBRARIES double-conversion)
 # 收集所有必需的源文件
 set(INK_SOURCES
     main.cpp
-    ppotrace.cpp
-    quantize.cpp
-    cielab.cpp
-    imagemap.cpp
-    imagemap-gdk.cpp
-    filterset.cpp
+    trace/ppotrace.cpp
+    trace/quantize.cpp
+    trace/cielab.cpp
+    trace/imagemap.cpp
+    trace/imagemap-gdk.cpp
+    trace/filterset.cpp
     svg/path-string.cpp
     svg/stringstream.cpp
     svg/svg-length.cpp
     svg/strip-trailing-zeros.cpp
     svg/svg-path.cpp
-    util/units.cpp
-    util-string/string-convert.cpp
+    util/string/string-convert.cpp
 )
 
 # 创建主程序可执行文件

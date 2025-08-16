@@ -13,7 +13,7 @@
 #include <iomanip>
 #include <potracelib.h>
 #include "pbitmap.h"
-#include "util-string/ustring-format.h"
+#include "util/string/ustring-format.h"
 #include "quantize.h"
 #include "filterset.h"
 

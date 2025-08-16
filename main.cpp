@@ -1,4 +1,4 @@
-#include "ppotrace.h"
+#include "trace/ppotrace.h"
 #include "svg/svg.h"
 #include <iostream>
 #include <fstream>

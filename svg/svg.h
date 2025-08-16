@@ -17,7 +17,7 @@
 #include <cstring>
 #include <string>
 
-#include "svg/svg-length.h"
+
 #include <2geom/forward.h>
 
 /* Generic */
@@ -48,11 +48,7 @@ std::string sp_svg_number_write_de( double val, unsigned int tprec, int min_exp 
  * Any return value pointer can be NULL
  */
 
-unsigned int sp_svg_length_read_computed_absolute( const char *str, float *length );
-std::vector<SVGLength> sp_svg_length_list_read( const char *str );
-unsigned int sp_svg_length_read_ldd( const char *str, SVGLength::Unit *unit, double *value, double *computed );
 
-std::string sp_svg_length_write_with_units(SVGLength const &length);
 
 bool sp_svg_transform_read(char const *str, Geom::Affine *transform);
 
