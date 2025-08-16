@@ -25,14 +25,14 @@ pkg_check_modules(OPENCV REQUIRED opencv4)
 ### 手动配置的库（不支持 pkg-config）
 
 # 2geom
-set(GEOM2_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/2geom")
+set(GEOM2_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/lib2geom")
 
 # 设置2geom构建选项（避免构建不需要的组件）
 set(2GEOM_TESTING OFF CACHE BOOL "Build 2geom tests" FORCE)
 set(2GEOM_BUILD_SHARED OFF CACHE BOOL "Build 2geom as shared library" FORCE)
 
 # 将2geom作为子项目添加
-add_subdirectory(2geom)
+add_subdirectory(lib2geom)
 
 # 使用2geom目标和头文件
 set(GEOM2_LIBRARIES 2geom)

@@ -111,14 +111,14 @@ int main(int argc, char* argv[]) {
         PotraceTracingEngine engine(
             TraceType::QUANT_COLOR,    // 量化颜色模式
             false,                     // 不反转
-            6,                         // 量化颜色数：6层
+            2,                         // 量化颜色数：6层
             0.35,                      // 亮度阈值
             0.0,                       // 亮度地板
             0.55,                      // 边缘检测阈值
-            6,                         // 多扫描颜色数：6层
+            2,                         // 多扫描颜色数：6层
             true,                      // 多扫描堆叠：Stack模式
             false,                     // 不平滑
-            true                      // 移除背景
+            false                      // 移除背景
         );
         
         traceResult = engine.trace(pixbuf, progress);
