@@ -16,8 +16,11 @@
 
 #include "trace.h"
 
-#include <2geom/transforms.h>
+
 #include <cassert>
+#include <fstream>
+#include <sstream>
+#include <locale>
 
 
 namespace Inkscape::Trace {
@@ -27,6 +30,45 @@ TraceResult trace(std::unique_ptr<TracingEngine> engine,
     return TraceResult();
   }
   return engine->trace(rgbmap);
+}
+
+// TraceResult
+
+std::string TraceResult::toSvg(int width, int height) const {
+  std::ostringstream svg;
+  svg.imbue(std::locale::classic());
+  
+  svg << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << std::endl;
+  svg << "<svg width=\"" << width << "\" height=\"" << height << "\" ";
+  svg << "viewBox=\"0 0 " << width << " " << height << "\" ";
+  svg << "xmlns=\"http://www.w3.org/2000/svg\" ";
+  svg << "preserveAspectRatio=\"xMidYMid meet\">" << std::endl;
+  
+  svg << toSvgPaths();
+  
+  svg << "</svg>" << std::endl;
+  return svg.str();
+}
+
+std::string TraceResult::toSvgPaths() const {
+  std::ostringstream paths;
+  paths.imbue(std::locale::classic());
+  
+  for (int i = items.size() - 1; i >= 0; --i) {
+    if (!items[i].pathData.empty()) {
+      paths << "  <path d=\"" << items[i].pathData << "\" style=\"" << items[i].style << "\" />" << std::endl;
+    }
+  }
+  
+  return paths.str();
+}
+
+void TraceResult::saveToSvg(const std::string& filename, int width, int height) const {
+  std::ofstream file(filename);
+  if (file.is_open()) {
+    file << toSvg(width, height);
+    file.close();
+  }
 }
 
 } // namespace Inkscape::Trace

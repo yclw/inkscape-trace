@@ -4,7 +4,6 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include <2geom/pathvector.h>
 #include "trace/imagemap/imagemap.h"
 
 namespace Inkscape {
@@ -25,17 +24,28 @@ enum class TraceType {
   AUTOTRACE_CENTERLINE // 自动中线（未使用）
 };
 
-// 追踪结果项
+// 追踪结果项 - 直接存储 SVG 路径数据，无需复杂转换
 struct TraceResultItem {
-  TraceResultItem(std::string style_, Geom::PathVector path_)
-      : style(std::move(style_)), path(std::move(path_)) {}
+  TraceResultItem(std::string style_, std::string pathData_)
+      : style(std::move(style_)), pathData(std::move(pathData_)) {}
 
-  std::string style;
-  Geom::PathVector path;
+  std::string style;    // CSS 样式，如 "fill:#000000"
+  std::string pathData; // SVG 路径数据，如 "M10,10 L20,20 C30,30 40,40 50,50 Z"
 };
 
 // 追踪结果
-using TraceResult = std::vector<TraceResultItem>;
+class TraceResult {
+public:
+  std::vector<TraceResultItem> items;
+  TraceResult() = default;
+  TraceResult(std::initializer_list<TraceResultItem> items) : items(items) {}
+
+  std::string toSvg(int width, int height) const;
+  
+  std::string toSvgPaths() const;
+  
+  void saveToSvg(const std::string& filename, int width, int height) const;
+};
 
 /**
  * A generic interface for plugging different autotracers into Inkscape.
@@ -49,8 +59,9 @@ class TracingEngine {
   
     /**
      * This is the working method of this interface, and all implementing classes.
-     * Take an RgbMap, trace it, and return a style attribute and the path data
-     * that is compatible with the d="" attribute of an SVG <path> element.
+     * Take an RgbMap, trace it, and return TraceResult containing style attributes 
+     * and SVG path data strings that are directly compatible with the d="" attribute 
+     * of SVG <path> elements. No geometric conversion is needed.
      *
      * This function will be called off-main-thread, so is required to be
      * thread-safe. The lack of const however indicates that it is not required to
@@ -64,13 +75,7 @@ class TracingEngine {
      */
     virtual RgbMap preview(RgbMap const &rgbmap) = 0;
   
-    /**
-     * Return true if the user should be checked with before tracing because the
-     * image is too big.
-     */
-    virtual bool check_image_size(Geom::IntPoint const &size) const {
-      return false;
-    }
+
   };
 
 /**

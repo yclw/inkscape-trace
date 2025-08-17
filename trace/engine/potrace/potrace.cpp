@@ -3,6 +3,7 @@
 #include "trace/filterset/filterset.h"
 #include <locale>
 #include <sstream>
+#include <iomanip>
 
 namespace {
 
@@ -88,52 +89,58 @@ void PotraceTracingEngine::setTurdSize(int turdsize) {
  * \a builder. The \a points set is used to prevent redundant paths.
  */
 /**
- * 递归遍历 potrace_path_t 节点树 \a paths, 将路径写入 \a builder.
- * 使用 \a points 集合来防止重复路径.
+ * 递归遍历 potrace_path_t 节点树 \a paths, 直接写入 SVG 路径字符串.
+ * 这比原来的几何转换方式快得多！
  */
-void PotraceTracingEngine::writePaths(
-    potrace_path_t *paths, Geom::PathBuilder &builder,
-    std::unordered_set<Geom::Point> &points) const {
-  auto to_geom = [](potrace_dpoint_t const &c) {
-    return Geom::Point(c.x, c.y);
-  };
-
+void PotraceTracingEngine::writePathsToSvg(potrace_path_t *paths, 
+                                          std::ostringstream &out) const {
+  std::unordered_set<std::string> processedPaths; // 防止重复路径
+  
   for (auto path = paths; path; path = path->sibling) {
-
     auto const &curve = path->curve;
-    // g_message("node->fm:%d\n", node->fm);
     if (curve.n == 0) {
       continue;
     }
 
+    // 开始构建这个路径的 SVG 字符串
+    std::ostringstream pathStr;
+    
+    // 移动到起始点
     auto seg = curve.c[curve.n - 1];
-    auto const pt = to_geom(seg[2]);
-    // Have we been here already?
-    auto inserted = points.emplace(pt).second;
-    if (!inserted) {
-      // g_message("duplicate point: (%f,%f)\n", x2, y2);
-      continue;
-    }
-    builder.moveTo(pt);
+    pathStr << "M" << std::fixed << std::setprecision(2) 
+            << seg[2].x << "," << seg[2].y;
 
+    // 处理所有曲线段
     for (int i = 0; i < curve.n; i++) {
       auto seg = curve.c[i];
       switch (curve.tag[i]) {
       case POTRACE_CORNER:
-        builder.lineTo(to_geom(seg[1]));
-        builder.lineTo(to_geom(seg[2]));
+        // 直线段：两个 lineTo 命令
+        pathStr << "L" << seg[1].x << "," << seg[1].y
+                << "L" << seg[2].x << "," << seg[2].y;
         break;
       case POTRACE_CURVETO:
-        builder.curveTo(to_geom(seg[0]), to_geom(seg[1]), to_geom(seg[2]));
+        // 贝塞尔曲线：curveTo 命令
+        pathStr << "C" << seg[0].x << "," << seg[0].y << " "
+                << seg[1].x << "," << seg[1].y << " "
+                << seg[2].x << "," << seg[2].y;
         break;
       default:
         break;
       }
     }
-    builder.closePath();
+    pathStr << "Z"; // 闭合路径
+    
+    // 检查是否已处理过这个路径（避免重复）
+    std::string pathString = pathStr.str();
+    if (processedPaths.find(pathString) == processedPaths.end()) {
+      processedPaths.insert(pathString);
+      out << pathString;
+    }
 
-    for (auto child = path->childlist; child; child = child->sibling) {
-      writePaths(child, builder, points);
+    // 递归处理子路径
+    if (path->childlist) {
+      writePathsToSvg(path->childlist, out);
     }
   }
 }
@@ -238,13 +245,14 @@ RgbMap PotraceTracingEngine::preview(RgbMap const &rgbmap) {
 
 /**
  * This is the actual wrapper of the call to Potrace.
+ * 直接返回 SVG 路径字符串
  */
-// 灰度图转路径
-Geom::PathVector PotraceTracingEngine::grayMapToPath(GrayMap const &grayMap) {
+// 灰度图直接转 SVG 字符串
+std::string PotraceTracingEngine::grayMapToSvg(GrayMap const &grayMap) {
   auto potraceBitmap =
       potrace_bitmap_uniqptr(bm_new(grayMap.width, grayMap.height));
   if (!potraceBitmap) {
-    return {};
+    return "";
   }
 
   bm_clear(potraceBitmap.get(), 0);
@@ -263,11 +271,10 @@ Geom::PathVector PotraceTracingEngine::grayMapToPath(GrayMap const &grayMap) {
 
   potraceBitmap.reset();
 
-  // Extract the paths into a pathvector and return it.
-  Geom::PathBuilder builder;
-  std::unordered_set<Geom::Point> points;
-  writePaths(potraceState->plist, builder, points);
-  return builder.peek();
+  // 直接提取 SVG 路径字符串！
+  std::ostringstream svgPath;
+  writePathsToSvg(potraceState->plist, svgPath);
+  return svgPath.str();
 }
 
 /**
@@ -282,10 +289,10 @@ TraceResult PotraceTracingEngine::traceSingle(RgbMap const &rgbmap) {
     return {};
   }
 
-  auto pv = grayMapToPath(*grayMap);
+  auto svgPath = grayMapToSvg(*grayMap);
 
   TraceResult results;
-  results.emplace_back("fill:#000000", std::move(pv));
+  results.items.emplace_back("fill:#000000", std::move(svgPath));
   return results;
 }
 
@@ -295,10 +302,10 @@ TraceResult PotraceTracingEngine::traceSingle(RgbMap const &rgbmap) {
  */
 // 追踪灰度图
 TraceResult PotraceTracingEngine::traceGrayMap(GrayMap const &grayMap) {
-  auto pv = grayMapToPath(grayMap);
+  auto svgPath = grayMapToSvg(grayMap);
 
   TraceResult results;
-  results.emplace_back("fill:#000000", std::move(pv));
+  results.items.emplace_back("fill:#000000", std::move(svgPath));
   return results;
 }
 
@@ -324,8 +331,8 @@ TraceResult PotraceTracingEngine::traceBrightnessMulti(RgbMap const &rgbmap) {
       continue;
     }
 
-    auto pv = grayMapToPath(*grayMap);
-    if (pv.empty()) {
+    auto svgPath = grayMapToSvg(*grayMap);
+    if (svgPath.empty()) {
       continue;
     }
 
@@ -335,7 +342,7 @@ TraceResult PotraceTracingEngine::traceBrightnessMulti(RgbMap const &rgbmap) {
                  twohex(grayVal);
 
     // g_message("### GOT '%s' \n", style.c_str());
-    results.emplace_back(style, std::move(pv));
+    results.items.emplace_back(style, std::move(svgPath));
 
     if (!multiScanStack) {
       brightnessFloor = brightnessThreshold;
@@ -343,8 +350,8 @@ TraceResult PotraceTracingEngine::traceBrightnessMulti(RgbMap const &rgbmap) {
   }
 
   // Remove the bottom-most scan, if requested.
-  if (results.size() > 1 && multiScanRemoveBackground) {
-    results.pop_back();
+  if (results.items.size() > 1 && multiScanRemoveBackground) {
+    results.items.pop_back();
   }
 
   return results;
@@ -382,19 +389,19 @@ TraceResult PotraceTracingEngine::traceQuant(RgbMap const &rgbmap) {
     }
 
     // Now we have a traceable graymap
-    auto pv = grayMapToPath(gm);
+    auto svgPath = grayMapToSvg(gm);
 
-    if (!pv.empty()) {
+    if (!svgPath.empty()) {
       // get style info
       auto rgb = imap.clut[colorIndex];
       auto style = "fill:#" + twohex(rgb.r) + twohex(rgb.g) + twohex(rgb.b);
-      results.emplace_back(style, std::move(pv));
+      results.items.emplace_back(style, std::move(svgPath));
     }
   }
 
   // Remove the bottom-most scan, if requested.
-  if (results.size() > 1 && multiScanRemoveBackground) {
-    results.pop_back();
+  if (results.items.size() > 1 && multiScanRemoveBackground) {
+    results.items.pop_back();
   }
 
   return results;

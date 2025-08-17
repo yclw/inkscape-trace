@@ -1,13 +1,10 @@
 #ifndef PPOTRACE_H
 #define PPOTRACE_H
 #include <optional>
-#include <unordered_set>
-#include <boost/functional/hash.hpp>
-#include <2geom/path-sink.h>
-#include <2geom/point.h>
+#include <sstream>
 #include <opencv2/opencv.hpp>
 #include "trace/trace.h"
-
+#include <unordered_set>
 #include <potracelib.h>
 
 #include "trace/imagemap/imagemap.h"
@@ -97,10 +94,10 @@ private:
     IndexedMap filterIndexed(RgbMap const &rgbmap) const;
     // 过滤
     std::optional<GrayMap> filter(RgbMap const &rgbmap) const;
-    // 灰度图转路径
-    Geom::PathVector grayMapToPath(GrayMap const &gm);
-    // 写路径
-    void writePaths(potrace_path_t *paths, Geom::PathBuilder &builder, std::unordered_set<Geom::Point> &points) const;
+    // 灰度图直接转 SVG 路径字符串
+    std::string grayMapToSvg(GrayMap const &gm);
+    // 直接写 SVG 路径字符串
+    void writePathsToSvg(potrace_path_t *paths, std::ostringstream &out) const;
 };
 
 } // namespace Potrace

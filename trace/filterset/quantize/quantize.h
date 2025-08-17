@@ -13,10 +13,9 @@
 #define INKSCAPE_TRACE_QUANTIZE_H
 
 #include "trace/imagemap/imagemap.h"
-#include <memory>
 #include <cassert>
 #include <cstdio>
-#include <glib.h>
+#include <memory>
 
 #include "pool.h"
 

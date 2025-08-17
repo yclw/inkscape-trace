@@ -1,8 +1,7 @@
-#include "svg/svg-writer.h"
 #include "trace/engine/potrace/potrace.h"
 #include "trace/imagemap/imagemap.h"
-#include "trace/trace.h" // 使用友好的trace.cpp接口
-#include <cstring>       // for memcpy
+#include "trace/trace.h"
+#include <cstring>
 #include <opencv2/opencv.hpp>
 
 using namespace Inkscape::Trace::Potrace;
@@ -74,11 +73,12 @@ int main(int argc, char *argv[]) {
 
   auto traceResult = Inkscape::Trace::trace(std::move(engine), rgbmap);
 
-  if (traceResult.empty()) {
+  if (traceResult.items.empty()) {
     return 1;
   }
 
-  Inkscape::SVG::generateVectorSvg(traceResult, "output.svg", image.cols, image.rows);
+  // 使用新的 TraceResult 内置方法直接保存 SVG！
+  traceResult.saveToSvg("output.svg", image.cols, image.rows);
 
   return 0;
 }
