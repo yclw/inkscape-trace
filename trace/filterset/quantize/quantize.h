@@ -12,14 +12,13 @@
 #ifndef INKSCAPE_TRACE_QUANTIZE_H
 #define INKSCAPE_TRACE_QUANTIZE_H
 
-#include "imagemap.h"
+#include "trace/imagemap/imagemap.h"
 #include <memory>
 #include <cassert>
 #include <cstdio>
 #include <glib.h>
 
 #include "pool.h"
-#include "imagemap.h"
 
 namespace Inkscape {
 namespace Trace {

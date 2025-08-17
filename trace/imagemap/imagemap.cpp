@@ -124,5 +124,53 @@ bool IndexedMap::writePPM(char const *fileName)
     return true;
 }
 
+GrayMap rgbMapToGrayMap(RgbMap const &rgbmap) {
+    auto graymap = GrayMap(rgbmap.width, rgbmap.height);
+    
+    for (int y = 0; y < rgbmap.height; y++) {
+        for (int x = 0; x < rgbmap.width; x++) {
+            auto rgb = rgbmap.getPixel(x, y);
+            int alpha = 255;
+            int white = 3 * (255 - alpha);
+            unsigned long sample = (int)rgb.r + (int)rgb.g + (int)rgb.b;
+            unsigned long bright = sample * alpha / 256 + white;
+            
+            graymap.setPixel(x, y, bright);
+        }
+    }
+    
+    return graymap;
+}
+
+RgbMap grayMapToRgbMap(GrayMap const &graymap) {
+    auto rgbmap = RgbMap(graymap.width, graymap.height);
+    
+    for (int y = 0; y < graymap.height; y++) {
+        for (int x = 0; x < graymap.width; x++) {
+            unsigned long pix = graymap.getPixel(x, y) / 3;
+            unsigned char val = pix & 0xff;
+            rgbmap.setPixel(x, y, {val, val, val});
+        }
+    }
+    
+    return rgbmap;
+}
+
+RgbMap indexedMapToRgbMap(IndexedMap const &indexedmap) {
+    auto rgbmap = RgbMap(indexedmap.width, indexedmap.height);
+    
+    for (int y = 0; y < indexedmap.height; y++) {
+        for (int x = 0; x < indexedmap.width; x++) {
+            auto rgb = indexedmap.getPixelValue(x, y);
+            unsigned char r = rgb.r & 0xff;
+            unsigned char g = rgb.g & 0xff;
+            unsigned char b = rgb.b & 0xff;
+            rgbmap.setPixel(x, y, {r, g, b});
+        }
+    }
+    
+    return rgbmap;
+}
+
 } // namespace Trace
 } // namespace Inkscape

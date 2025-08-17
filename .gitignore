@@ -1,4 +1,3 @@
-# 编译产物和对象文件
 *.o
 *.obj
 *.lo
@@ -6,16 +5,13 @@
 *.ko
 *.elf
 
-# 链接器输出
 *.ilk
 *.map
 *.exp
 
-# 预编译头文件
 *.gch
 *.pch
 
-# 库文件
 *.lib
 *.a
 *.la
@@ -23,25 +19,21 @@
 *.def
 *.exp
 
-# 共享对象文件 (Unix/Linux)
 *.so
 *.so.*
 *.dylib
 
-# 动态链接库 (Windows)
 *.dll
 *.pdb
 *.idb
 *.pdb
 
-# 可执行文件
 *.exe
 *.out
 *.app
 main
 inkscape-trace
 
-# CMake 构建产物
 build/
 Build/
 BUILD/
@@ -53,7 +45,6 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 
-# Python 编译文件
 *.pyc
 *.pyo
 *.pyd
@@ -67,10 +58,8 @@ env/
 venv/
 .env
 
-# Cython 生成的文件
 *.c
 
-# IDE 和编辑器文件
 .vscode/
 .idea/
 *.swp
@@ -87,7 +76,6 @@ venv/
 *.userosscache
 *.sln.docstates
 
-# 系统文件
 .DS_Store
 .DS_Store?
 ._*
@@ -96,7 +84,6 @@ venv/
 ehthumbs.db
 Thumbs.db
 
-# 临时文件
 *.tmp
 *.temp
 *.log
@@ -104,23 +91,18 @@ Thumbs.db
 *.backup
 *.orig
 
-# 测试覆盖率文件
 *.gcov
 *.gcno
 *.gcda
 *.info
 coverage/
 
-# Valgrind 输出
 *.valgrind
 
-# 调试符号
 *.dSYM/
 
-# pkg-config 文件
 *.pc
 
-# autotools 产物
 .deps/
 .libs/
 *.la
@@ -142,7 +124,6 @@ stamp-h1
 Makefile
 Makefile.in
 
-# Documentation 构建产物
 doc/html/
 doc/latex/
 *.aux
@@ -152,9 +133,9 @@ doc/latex/
 *.fls
 *.toc
 
-# 测试产物
 test_results/
 *.test
 
-# 依赖管理
 conan.lock
+
+.cache/

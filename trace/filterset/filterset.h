@@ -13,10 +13,8 @@
 #ifndef INKSCAPE_TRACE_FILTERSET_H
 #define INKSCAPE_TRACE_FILTERSET_H
 
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include "imagemap.h"
-#include "imagemap-gdk.h"
-#include "quantize.h"
+#include "trace/imagemap/imagemap.h"
+#include "quantize/quantize.h"
 
 namespace Inkscape {
 namespace Trace {

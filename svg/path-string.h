@@ -16,7 +16,6 @@
 #define SEEN_INKSCAPE_SVG_PATH_STRING_H
 
 #include <2geom/point.h>
-#include <cstdio>
 #include <glibmm/ustring.h>
 #include <string>
 

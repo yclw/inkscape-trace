@@ -6,16 +6,11 @@
 #include <2geom/path-sink.h>
 #include <2geom/point.h>
 #include <opencv2/opencv.hpp>
-#include "imagemap.h"
-#include "trace.h"
-#include <glibmm/refptr.h>
-#include "imagemap-gdk.h"
-#include <iomanip>
+#include "trace/trace.h"
+
 #include <potracelib.h>
-#include "pbitmap.h"
-#include "util/string/ustring-format.h"
-#include "quantize.h"
-#include "filterset.h"
+
+#include "trace/imagemap/imagemap.h"
 
 using potrace_param_t = struct potrace_param_s;
 using potrace_path_t = struct potrace_path_s;
@@ -24,20 +19,7 @@ namespace Inkscape {
 namespace Trace {
 namespace Potrace {
 
-enum class TraceType
-{
-    BRIGHTNESS,       // 亮度
-    BRIGHTNESS_MULTI, // 亮度多
-    CANNY,            // 边缘检测
-    QUANT,            // 量化
-    QUANT_COLOR,      // 量化颜色
-    QUANT_MONO,       // 量化单色
-    
-    // Used in tracedialog.cpp
-    AUTOTRACE_SINGLE,    // 自动单（未使用）
-    AUTOTRACE_MULTI,     // 自动多（未使用）
-    AUTOTRACE_CENTERLINE // 自动中线（未使用）
-};
+
 
 // Potrace 追踪引擎
 class PotraceTracingEngine final : public TracingEngine
@@ -45,7 +27,7 @@ class PotraceTracingEngine final : public TracingEngine
 public:
     PotraceTracingEngine();
 
-    PotraceTracingEngine(TraceType traceType,           // 追踪类型
+    PotraceTracingEngine(Inkscape::Trace::TraceType traceType,           // 追踪类型
                          bool invert,                   // 是否反转
                          int quantizationNrColors,      // 量化颜色数
                          double brightnessThreshold,    // 亮度阈值
@@ -60,11 +42,11 @@ public:
     ~PotraceTracingEngine() override;
 
     // 追踪  
-    TraceResult trace(Glib::RefPtr<Gdk::Pixbuf> const &pixbuf, Async::Progress &progress) override;
+    TraceResult trace(RgbMap const &rgbmap) override;
     // 预览
-    Glib::RefPtr<Gdk::Pixbuf> preview(Glib::RefPtr<Gdk::Pixbuf> const &pixbuf) override;
+    RgbMap preview(RgbMap const &rgbmap) override;
     // 追踪灰度图
-    TraceResult traceGrayMap(GrayMap const &grayMap, Async::Progress &progress);
+    TraceResult traceGrayMap(GrayMap const &grayMap);
     // 设置优化曲线
     void setOptiCurve(int);
     // 设置优化容差
@@ -105,21 +87,20 @@ private:
     void common_init();
 
     // 量化
-    TraceResult traceQuant(Glib::RefPtr<Gdk::Pixbuf> const &pixbuf, Async::Progress &progress);
+    TraceResult traceQuant(RgbMap const &rgbmap);
     // 亮度多  
-    TraceResult traceBrightnessMulti(Glib::RefPtr<Gdk::Pixbuf> const &pixbuf, Async::Progress &progress);
+    TraceResult traceBrightnessMulti(RgbMap const &rgbmap);
     // 单
-    TraceResult traceSingle(Glib::RefPtr<Gdk::Pixbuf> const &pixbuf, Async::Progress &progress);
+    TraceResult traceSingle(RgbMap const &rgbmap);
 
     // 过滤索引
-    IndexedMap filterIndexed(Glib::RefPtr<Gdk::Pixbuf> const &pixbuf) const;
+    IndexedMap filterIndexed(RgbMap const &rgbmap) const;
     // 过滤
-    std::optional<GrayMap> filter(Glib::RefPtr<Gdk::Pixbuf> const &pixbuf) const;
+    std::optional<GrayMap> filter(RgbMap const &rgbmap) const;
     // 灰度图转路径
-    Geom::PathVector grayMapToPath(GrayMap const &gm, Async::Progress &progress);
+    Geom::PathVector grayMapToPath(GrayMap const &gm);
     // 写路径
-    void writePaths(potrace_path_t *paths, Geom::PathBuilder &builder, std::unordered_set<Geom::Point> &points,
-                    Async::Progress &progress) const;
+    void writePaths(potrace_path_t *paths, Geom::PathBuilder &builder, std::unordered_set<Geom::Point> &points) const;
 };
 
 } // namespace Potrace

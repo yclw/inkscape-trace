@@ -11,7 +11,7 @@ find_package(PkgConfig REQUIRED)
 ### 使用 pkg-config 管理的库
 
 # gtkmm-4.0 (包含 gdkmm)
-pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
+# pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
 
 # glib-2.0
 pkg_check_modules(GLIB REQUIRED glib-2.0)
@@ -54,7 +54,7 @@ set(BOOST_LIBRARIES boost_system boost_filesystem)
 
 # 添加编译标志
 add_compile_options(
-    ${GTKMM_CFLAGS_OTHER}
+    # ${GTKMM_CFLAGS_OTHER}
     ${GLIB_CFLAGS_OTHER}
     ${GLIBMM_CFLAGS_OTHER}
     ${OPENCV_CFLAGS_OTHER}
@@ -62,7 +62,7 @@ add_compile_options(
 
 # 添加头文件路径
 include_directories(
-    ${GTKMM_INCLUDE_DIRS}
+    # ${GTKMM_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS}
     ${GLIBMM_INCLUDE_DIRS}
     ${OPENCV_INCLUDE_DIRS}
@@ -70,7 +70,7 @@ include_directories(
 
 # 添加库路径
 link_directories(
-    ${GTKMM_LIBRARY_DIRS}
+    # ${GTKMM_LIBRARY_DIRS}
     ${GLIB_LIBRARY_DIRS}
     ${GLIBMM_LIBRARY_DIRS}
     ${OPENCV_LIBRARY_DIRS}
@@ -98,27 +98,22 @@ set(DOUBLE_CONVERSION_LIBRARIES double-conversion)
 # 收集所有必需的源文件
 set(INK_SOURCES
     main.cpp
-    trace/ppotrace.cpp
-    trace/quantize.cpp
-    trace/cielab.cpp
-    trace/imagemap.cpp
-    trace/imagemap-gdk.cpp
-    trace/filterset.cpp
+    trace/engine/potrace/potrace.cpp
+    trace/imagemap/imagemap.cpp
+    trace/filterset/filterset.cpp
+    trace/filterset/quantize/quantize.cpp
     svg/path-string.cpp
-    svg/stringstream.cpp
     svg/svg-length.cpp
-    svg/strip-trailing-zeros.cpp
     svg/svg-path.cpp
-    util/string/string-convert.cpp
+    svg/svg-writer.cpp
+    trace/trace.cpp
 )
 
-# 创建主程序可执行文件
 add_executable(ink ${INK_SOURCES})
 
-# 链接所有必要的库
-target_link_libraries(ink 
+target_link_libraries(ink
     ink_bitmap
-    ${GTKMM_LIBRARIES}
+    # ${GTKMM_LIBRARIES}
     ${GLIB_LIBRARIES}
     ${GLIBMM_LIBRARIES}
     ${OPENCV_LIBRARIES}

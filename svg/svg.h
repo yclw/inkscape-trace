@@ -13,7 +13,6 @@
  * Released under GNU GPL v2+, read the file 'COPYING' for more information.
  */
 
-#include <vector>
 #include <cstring>
 #include <string>
 
@@ -61,6 +60,9 @@ double sp_svg_read_percentage( const char * str, double def );
 Geom::PathVector sp_svg_read_pathv( char const * str );
 std::string sp_svg_write_path(Geom::PathVector const &p, bool normalize = false);
 std::string sp_svg_write_path(Geom::Path const &p);
+
+// Include SVG writer utilities
+#include "svg-writer.h"
 
 #endif // SEEN_SP_SVG_H
 

@@ -18,7 +18,7 @@
 
 #include <cstring>
 #include <string>
-#include <glib.h> // g_assert()
+#include <glib.h>
 
 #include <2geom/pathvector.h>
 #include <2geom/curves.h>

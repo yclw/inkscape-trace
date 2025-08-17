@@ -85,6 +85,11 @@ struct IndexedMap
     std::array<RGB, 256> clut; ///< Color look-up table.
 };
 
+// 图像格式转换函数
+GrayMap rgbMapToGrayMap(RgbMap const &rgbmap);
+RgbMap grayMapToRgbMap(GrayMap const &graymap);
+RgbMap indexedMapToRgbMap(IndexedMap const &indexedmap);
+
 } // namespace Trace
 } // namespace Inkscape
 
