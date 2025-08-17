@@ -1,4 +1,4 @@
-#include "svg/svg.h"
+#include "svg/svg-writer.h"
 #include "trace/engine/potrace/potrace.h"
 #include "trace/imagemap/imagemap.h"
 #include "trace/trace.h" // 使用友好的trace.cpp接口
@@ -60,8 +60,17 @@ int main(int argc, char *argv[]) {
   auto rgbmap = matToRgbMap(image);
 
   auto engine = std::make_unique<PotraceTracingEngine>(
-      Inkscape::Trace::TraceType::QUANT_COLOR, false, 2, 0.35, 0.0, 0.55, 2,
-      true, false, false);
+      Inkscape::Trace::TraceType::QUANT,  // 颜色量化
+      false,  // 是否反转
+      4,  // 颜色量化数量
+      0.45,  // 亮度阈值
+      0.0,  // 亮度阈值
+      0.55,  // 亮度阈值
+      2,  // 多扫描颜色数量
+      true,  // 多扫描堆叠
+      false,  // 多扫描平滑
+      false  // 多扫描移除背景
+    );
 
   auto traceResult = Inkscape::Trace::trace(std::move(engine), rgbmap);
 

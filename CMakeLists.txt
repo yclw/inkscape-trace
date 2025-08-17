@@ -10,14 +10,8 @@ find_package(PkgConfig REQUIRED)
 
 ### 使用 pkg-config 管理的库
 
-# gtkmm-4.0 (包含 gdkmm)
-# pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
-
 # glib-2.0
 pkg_check_modules(GLIB REQUIRED glib-2.0)
-
-# glibmm-2.4
-pkg_check_modules(GLIBMM REQUIRED glibmm-2.4)
 
 # opencv4
 pkg_check_modules(OPENCV REQUIRED opencv4)
@@ -54,25 +48,19 @@ set(BOOST_LIBRARIES boost_system boost_filesystem)
 
 # 添加编译标志
 add_compile_options(
-    # ${GTKMM_CFLAGS_OTHER}
     ${GLIB_CFLAGS_OTHER}
-    ${GLIBMM_CFLAGS_OTHER}
     ${OPENCV_CFLAGS_OTHER}
 )
 
 # 添加头文件路径
 include_directories(
-    # ${GTKMM_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS}
-    ${GLIBMM_INCLUDE_DIRS}
     ${OPENCV_INCLUDE_DIRS}
 )
 
 # 添加库路径
 link_directories(
-    # ${GTKMM_LIBRARY_DIRS}
     ${GLIB_LIBRARY_DIRS}
-    ${GLIBMM_LIBRARY_DIRS}
     ${OPENCV_LIBRARY_DIRS}
 )
 
@@ -103,9 +91,9 @@ set(INK_SOURCES
     trace/filterset/filterset.cpp
     trace/filterset/quantize/quantize.cpp
     svg/path-string.cpp
-    svg/svg-length.cpp
     svg/svg-path.cpp
     svg/svg-writer.cpp
+    svg/svg-length.cpp
     trace/trace.cpp
 )
 
@@ -113,9 +101,7 @@ add_executable(ink ${INK_SOURCES})
 
 target_link_libraries(ink
     ink_bitmap
-    # ${GTKMM_LIBRARIES}
     ${GLIB_LIBRARIES}
-    ${GLIBMM_LIBRARIES}
     ${OPENCV_LIBRARIES}
     ${POTRACE_LIBRARIES}
     ${BOOST_LIBRARIES}

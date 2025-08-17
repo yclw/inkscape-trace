@@ -3,76 +3,27 @@
 #define SEEN_SP_SVG_H
 
 /*
- * SVG data parser
- *
+ * SVG utilities for TraceResult → SVG conversion
  * Authors:
- *   Lauris Kaplinski <lauris@kaplinski.com>
- *
- * Copyright (C) 1999-2002 Lauris Kaplinski
+ *   Inkscape Trace Project
  *
  * Released under GNU GPL v2+, read the file 'COPYING' for more information.
  */
 
-#include <cstring>
 #include <string>
 
-
-#include <2geom/forward.h>
-
-/* Generic */
+/* Core number formatting functions used by PathString */
 
 /*
- * These are very-very simple:
- * - they accept everything libc strtod accepts
- * - no valid end character checking
- * Return FALSE and let val untouched on error
+ * Format number with specified precision and minimum exponent
+ * Used for SVG coordinate output
  */
-
-unsigned int sp_svg_number_read_f( const char *str, float *val );
-unsigned int sp_svg_number_read_d( const char *str, double *val );
+std::string sp_svg_number_write_de(double val, unsigned int tprec, int min_exp);
 
 /*
- * No buffer overflow checking is done, so better wrap them if needed
+ * Read number from string (used in relative coordinate calculations)
+ * Returns 1 on success, 0 on failure
  */
-std::string sp_svg_number_write_de( double val, unsigned int tprec, int min_exp );
-
-/* Length */
-
-/*
- * Parse number with optional unit specifier:
- * - for px, pt, pc, mm, cm, computed is final value according to SVG spec
- * - for em, ex, and % computed is left untouched
- * - % is divided by 100 (i.e. 100% is 1.0)
- * !isalnum check is done at the end
- * Any return value pointer can be NULL
- */
-
-
-
-bool sp_svg_transform_read(char const *str, Geom::Affine *transform);
-
-std::string sp_svg_transform_write(Geom::Affine const &transform);
-
-double sp_svg_read_percentage( const char * str, double def );
-
-/* NB! As paths can be long, we use here dynamic string */
-
-Geom::PathVector sp_svg_read_pathv( char const * str );
-std::string sp_svg_write_path(Geom::PathVector const &p, bool normalize = false);
-std::string sp_svg_write_path(Geom::Path const &p);
-
-// Include SVG writer utilities
-#include "svg-writer.h"
+unsigned int sp_svg_number_read_d(const char *str, double *val);
 
 #endif // SEEN_SP_SVG_H
-
-/*
-  Local Variables:
-  mode:c++
-  c-file-style:"stroustrup"
-  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
-  indent-tabs-mode:nil
-  fill-column:99
-  End:
-*/
-// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:fileencoding=utf-8:textwidth=99 :

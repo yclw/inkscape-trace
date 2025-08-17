@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "svg-writer.h"
-#include "svg.h"
+#include "svg-path.h"
 #include <fstream>
 #include <iostream>
 #include <locale>

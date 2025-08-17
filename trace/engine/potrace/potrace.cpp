@@ -255,14 +255,6 @@ Geom::PathVector PotraceTracingEngine::grayMapToPath(GrayMap const &grayMap) {
       BM_UPUT(potraceBitmap, x, y, grayMap.getPixel(x, y) ? 0 : 1);
     }
   }
-
-  // ##Debug
-  /*
-  FILE *f = fopen("poimage.pbm", "wb");
-  bm_writepbm(f, bm);
-  fclose(f);
-  */
-
   // Trace the bitmap.
 
   // Progress reporting removed
