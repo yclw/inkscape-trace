@@ -54,7 +54,6 @@
 #define INKSCAPE_TRACE_POOL_H
 
 #include <cstdlib>
-#include <exception>
 #include <algorithm>
 
 template <typename T>

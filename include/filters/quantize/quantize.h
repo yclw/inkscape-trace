@@ -16,18 +16,13 @@
 #include <cassert>
 #include <cstdio>
 #include <memory>
-
 #include "pool.h"
 
-namespace Inkscape {
-namespace Trace {
 
 /**
  * Quantize an RGB image to a reduced number of colors.
  */
 IndexedMap rgbMapQuantize(RgbMap const &rgbmap, int nrColors);
 
-} // namespace Trace
-} // namespace Inkscape
 
 #endif // INKSCAPE_TRACE_QUANTIZE_H

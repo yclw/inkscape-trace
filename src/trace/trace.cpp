@@ -22,7 +22,7 @@
 #include <sstream>
 #include <locale>
 
-namespace Inkscape::Trace {
+
 TraceResult trace(std::unique_ptr<TracingEngine> engine,
                   RgbMap const &rgbmap) {
   if (!engine) {
@@ -70,4 +70,4 @@ void TraceResult::saveToSvg(const std::string& filename, int width, int height) 
   }
 }
 
-} // namespace Inkscape::Trace
+

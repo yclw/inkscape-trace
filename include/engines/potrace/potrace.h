@@ -15,8 +15,6 @@
 using potrace_param_t = struct potrace_param_s;
 using potrace_path_t = struct potrace_path_s;
 
-namespace Inkscape {
-namespace Trace {
 namespace Potrace {
 
 // Potrace 追踪引擎
@@ -102,8 +100,6 @@ private:
 };
 
 } // namespace Potrace
-} // namespace Trace
-} // namespace Inkscape
 
 
 

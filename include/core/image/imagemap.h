@@ -13,8 +13,7 @@
 #include <vector>
 #include <array>
 
-namespace Inkscape {
-namespace Trace {
+
 
 template <typename T>
 struct MapBase
@@ -90,7 +89,6 @@ GrayMap rgbMapToGrayMap(RgbMap const &rgbmap);
 RgbMap grayMapToRgbMap(GrayMap const &graymap);
 RgbMap indexedMapToRgbMap(IndexedMap const &indexedmap);
 
-} // namespace Trace
-} // namespace Inkscape
+
 
 #endif // INKSCAPE_TRACE_IMAGEMAP_H

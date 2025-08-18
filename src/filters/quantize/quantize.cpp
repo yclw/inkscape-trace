@@ -11,8 +11,7 @@
  */
 #include "filters/quantize/quantize.h"
 
-namespace Inkscape {
-namespace Trace {
+
 
 namespace {
 
@@ -544,5 +543,4 @@ IndexedMap rgbMapQuantize(RgbMap const &rgbmap, int ncolor)
     return imap;
 }
 
-} // namespace Trace
-} // namespace Inkscape
+

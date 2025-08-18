@@ -32,8 +32,6 @@ std::string twohex(int value) {
 
 } // namespace
 
-namespace Inkscape {
-namespace Trace {
 namespace Potrace {
 
 // 构造函数
@@ -421,5 +419,3 @@ TraceResult PotraceTracingEngine::trace(RgbMap const &rgbmap) {
 }
 
 } // namespace Potrace
-} // namespace Trace
-} // namespace Inkscape

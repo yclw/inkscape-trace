@@ -16,8 +16,6 @@
 #include "core/core.h"
 #include "quantize/quantize.h"
 
-namespace Inkscape {
-namespace Trace {
 
 /**
  * Apply gaussian blur to an GrayMap.
@@ -33,7 +31,5 @@ GrayMap grayMapCanny(GrayMap const &gmap, double lowThreshold, double highThresh
 
 GrayMap quantizeBand(RgbMap const &rgbmap, int nrColors);
 
-} // namespace Trace
-} // namespace Inkscape
 
 #endif // INKSCAPE_TRACE_FILTERSET_H

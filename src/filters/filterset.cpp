@@ -12,8 +12,7 @@
  */
 #include "filters/filterset.h"
 
-namespace Inkscape {
-namespace Trace {
+
 
 /*#########################################################################
 ### G A U S S I A N  (smoothing)
@@ -265,5 +264,4 @@ GrayMap quantizeBand(RgbMap const &rgbMap, int nrColors)
     return gm;
 }
 
-} // namespace Trace
-} // namespace Inkscape
+

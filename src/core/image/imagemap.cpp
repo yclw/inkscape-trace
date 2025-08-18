@@ -10,8 +10,7 @@
 #include <cstdio>
 #include "core/image/imagemap.h"
 
-namespace Inkscape {
-namespace Trace {
+
 
 /*
  * GrayMap
@@ -172,5 +171,4 @@ RgbMap indexedMapToRgbMap(IndexedMap const &indexedmap) {
     return rgbmap;
 }
 
-} // namespace Trace
-} // namespace Inkscape
+

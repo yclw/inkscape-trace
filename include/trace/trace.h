@@ -7,9 +7,7 @@
 #include <memory>
 #include "core/core.h"
 
-namespace Inkscape {
 
-namespace Trace {
 
 enum class TraceType {
   BRIGHTNESS,       // 亮度
@@ -84,7 +82,6 @@ class TracingEngine {
 TraceResult trace(std::unique_ptr<TracingEngine> engine,
                   RgbMap const &rgbmap);
 
-} // namespace Trace
-} // namespace Inkscape
+
 
 #endif // INKSCAPE_TRACE_H
