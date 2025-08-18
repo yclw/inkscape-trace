@@ -8,7 +8,7 @@
  * Released under GNU GPL v2+, read the file 'COPYING' for more information.
  */
 #include <cstdio>
-#include "imagemap.h"
+#include "core/image/imagemap.h"
 
 namespace Inkscape {
 namespace Trace {

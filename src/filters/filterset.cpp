@@ -10,8 +10,7 @@
  *
  * Released under GNU GPL v2+, read the file 'COPYING' for more information.
  */
-#include <cstdio>
-#include "filterset.h"
+#include "filters/filterset.h"
 
 namespace Inkscape {
 namespace Trace {

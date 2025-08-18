@@ -14,9 +14,7 @@
 #include <cerrno>
 #include <cstddef>
 #include <iostream>
-
-/* The bitmap type is defined in potracelib.h */
-#include "potracelib.h"
+#include <potracelib.h>
 
 /* The present file defines some convenient macros and static inline
    functions for accessing bitmaps. Since they only produce inline

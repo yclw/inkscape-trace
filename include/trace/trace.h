@@ -4,7 +4,8 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include "trace/imagemap/imagemap.h"
+#include <memory>
+#include "core/core.h"
 
 namespace Inkscape {
 
@@ -74,15 +75,13 @@ class TracingEngine {
      * must be thread-safe.
      */
     virtual RgbMap preview(RgbMap const &rgbmap) = 0;
-  
-
   };
 
 /**
  * Synchronous trace operation that directly returns the result.
  * Takes an RgbMap as input along with the engine.
  */
-TraceResult trace(std::unique_ptr<Inkscape::Trace::TracingEngine> engine,
+TraceResult trace(std::unique_ptr<TracingEngine> engine,
                   RgbMap const &rgbmap);
 
 } // namespace Trace

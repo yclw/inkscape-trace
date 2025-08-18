@@ -1,9 +1,10 @@
-#include "potrace.h"
-#include "pbitmap.h"
-#include "trace/filterset/filterset.h"
+#include "engines/potrace/potrace.h"
+#include "filters/filterset.h"
+#include "trace/trace.h"
 #include <locale>
 #include <sstream>
 #include <iomanip>
+#include <unordered_set>
 
 namespace {
 

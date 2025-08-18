@@ -12,7 +12,7 @@
 #ifndef INKSCAPE_TRACE_QUANTIZE_H
 #define INKSCAPE_TRACE_QUANTIZE_H
 
-#include "trace/imagemap/imagemap.h"
+#include "core/core.h"
 #include <cassert>
 #include <cstdio>
 #include <memory>

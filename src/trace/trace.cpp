@@ -14,14 +14,13 @@
  * Released under GNU GPL v2+, read the file 'COPYING' for more information.
  */
 
-#include "trace.h"
+#include "trace/trace.h"
 
 
 #include <cassert>
 #include <fstream>
 #include <sstream>
 #include <locale>
-
 
 namespace Inkscape::Trace {
 TraceResult trace(std::unique_ptr<TracingEngine> engine,

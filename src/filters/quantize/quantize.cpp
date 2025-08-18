@@ -9,7 +9,7 @@
  *
  * Released under GNU GPL v2+, read the file 'COPYING' for more information.
  */
- #include "quantize.h"
+#include "filters/quantize/quantize.h"
 
 namespace Inkscape {
 namespace Trace {

@@ -1,11 +1,10 @@
-#include "trace/engine/potrace/potrace.h"
-#include "trace/imagemap/imagemap.h"
+#include "engines/engines.h"
 #include "trace/trace.h"
 #include <cstring>
 #include <opencv2/opencv.hpp>
 
-using namespace Inkscape::Trace::Potrace;
 using namespace Inkscape::Trace;
+using namespace Inkscape::Trace::Potrace;
 
 // 将OpenCV Mat转换为RgbMap
 Inkscape::Trace::RgbMap matToRgbMap(const cv::Mat &mat) {

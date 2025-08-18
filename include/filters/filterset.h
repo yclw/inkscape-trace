@@ -13,7 +13,7 @@
 #ifndef INKSCAPE_TRACE_FILTERSET_H
 #define INKSCAPE_TRACE_FILTERSET_H
 
-#include "trace/imagemap/imagemap.h"
+#include "core/core.h"
 #include "quantize/quantize.h"
 
 namespace Inkscape {

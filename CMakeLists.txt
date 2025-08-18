@@ -38,21 +38,28 @@ link_directories(
     ${OPENCV_LIBRARY_DIRS}
 )
 
+# 设置包含目录
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    "${POTRACE_ROOT}/include"
+)
+
 # 创建头文件库（仅包含头文件）
 add_library(ink_bitmap INTERFACE)
 target_include_directories(ink_bitmap INTERFACE 
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
     "${POTRACE_ROOT}/include"
 )
 
 # 收集所有必需的源文件
 set(INK_SOURCES
     main.cpp
-    trace/engine/potrace/potrace.cpp
-    trace/imagemap/imagemap.cpp
-    trace/filterset/filterset.cpp
-    trace/filterset/quantize/quantize.cpp
-    trace/trace.cpp
+    src/trace/trace.cpp
+    src/engines/potrace/potrace.cpp
+    src/core/image/imagemap.cpp
+    src/filters/filterset.cpp
+    src/filters/quantize/quantize.cpp
+    src/core/svg/svg.cpp
 )
 
 add_executable(ink ${INK_SOURCES})
